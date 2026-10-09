@@ -4,23 +4,8 @@
     @keyframes type{from{clip-path:inset(0 100% 0 0)}to{clip-path:inset(0 0 0 0)}}
     @keyframes show{from{opacity:0}to{opacity:1}}
     @keyframes blink{50%{opacity:0}}
-    #cursor{animation:show .01s 6.51s backwards,blink 1s steps(1) 7.01s infinite}
-    #l0{animation:type 1.61s steps(73) 0.40s backwards}
-    #l1{animation:show .01s 2.36s backwards}
-    #l2{animation:show .01s 2.48s backwards}
-    #l3{animation:show .01s 2.53s backwards}
-    #l4{animation:show .01s 2.65s backwards}
-    #l5{animation:type 1.19s steps(54) 2.70s backwards}
-    #l6{animation:show .01s 4.23s backwards}
-    #l7{animation:show .01s 4.35s backwards}
-    #l8{animation:type 0.99s steps(45) 4.40s backwards}
-    #l9{animation:show .01s 5.74s backwards}
-    #l10{animation:show .01s 5.86s backwards}
-    #l11{animation:show .01s 5.98s backwards}
-    #l12{animation:show .01s 6.10s backwards}
-    #l13{animation:show .01s 6.22s backwards}
-    #l14{animation:show .01s 6.34s backwards}
-    #l15{animation:show .01s 6.39s backwards}
+    #cursor{animation:blink 1.1s steps(1) infinite}
+    
     @media (prefers-reduced-motion:reduce){text,#cursor{animation:none!important}}
   </style>
   <rect x="1" y="1" width="1038" height="650" rx="18" fill="#0a1628" stroke="#29415f" stroke-width="2"/>

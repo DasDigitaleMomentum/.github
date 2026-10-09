@@ -1,5 +1,6 @@
-// Animated terminal for the org profile: real commands against www.das-digitale-momentum.de with
-// their real output (09.10.2026). Plays once; with prefers-reduced-motion everything shows at once.
+// Terminal for the org profile: real commands against www.das-digitale-momentum.de with their real
+// output (09.10.2026). All text is static and always visible (renderers such as the GitHub mobile app
+// may freeze CSS animations at t=0); only the cursor blinks, and not with prefers-reduced-motion.
 import { writeFileSync } from "node:fs";
 const OUT = process.argv[2] ?? "profile";
 const esc = (s) => s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
@@ -34,10 +35,10 @@ lines.forEach((line, i) => {
   const chars = line.parts.reduce((n, [s]) => n + [...s].length, 0);
   if (line.cmd) {
     const dur = Math.max(0.6, chars * 0.022);
-    css.push(`#${id}{animation:type ${dur.toFixed(2)}s steps(${Math.max(chars, 1)}) ${t.toFixed(2)}s backwards}`);
+    // static: no per-line animation
     t += dur + 0.35;
   } else {
-    css.push(`#${id}{animation:show .01s ${t.toFixed(2)}s backwards}`);
+    // static: no per-line animation
     t += line.parts[0][0] === "" ? 0.05 : 0.12;
   }
   body.push(`  <text id="${id}" x="${PAD}" y="${y}">${text}</text>`);
@@ -48,7 +49,7 @@ const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}" 
     @keyframes type{from{clip-path:inset(0 100% 0 0)}to{clip-path:inset(0 0 0 0)}}
     @keyframes show{from{opacity:0}to{opacity:1}}
     @keyframes blink{50%{opacity:0}}
-    #cursor{animation:show .01s ${t.toFixed(2)}s backwards,blink 1s steps(1) ${(t + 0.5).toFixed(2)}s infinite}
+    #cursor{animation:blink 1.1s steps(1) infinite}
     ${css.join("\n    ")}
     @media (prefers-reduced-motion:reduce){text,#cursor{animation:none!important}}
   </style>
