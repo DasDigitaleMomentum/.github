@@ -1,6 +1,6 @@
 <picture>
-  <source media="(prefers-color-scheme: dark)" srcset="assets/header-dark.svg">
-  <img alt="Das Digitale Momentum: Software with momentum. Consulting, engineering, operations. Since 2017." src="assets/header-light.svg" width="100%">
+  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/DasDigitaleMomentum/.github/main/profile/assets/header-dark.svg">
+  <img alt="Das Digitale Momentum: Software with momentum. Consulting, engineering, operations. Since 2017." src="https://raw.githubusercontent.com/DasDigitaleMomentum/.github/main/profile/assets/header-light.svg" width="100%">
 </picture>
 
 <p>
@@ -15,15 +15,15 @@
 
 Das Digitale Momentum builds software for companies and its own products. The same team consults, builds and runs both: cloud, DevOps, data and AI, from Much, Germany. Our website speaks Markdown to agents. Try it:
 
-<img alt="Terminal: curl with Accept text/markdown returns the page as Markdown, /llms.txt starts with # Das Digitale Momentum, and npx is-agentic reports 100 / 100." src="assets/terminal.svg" width="100%">
+<img alt="Terminal: curl with Accept text/markdown returns the page as Markdown, /llms.txt starts with # Das Digitale Momentum, and npx is-agentic reports 100 / 100." src="https://raw.githubusercontent.com/DasDigitaleMomentum/.github/main/profile/assets/terminal.svg" width="100%">
 
 ### `$ ls ./products`
 
-<a href="https://www.urbario.de/"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/cards/product-urbario-dark.svg"><img alt="Urbario: automated service charge statements for landlords, property managers and owners' associations. Waitlist." src="assets/cards/product-urbario-light.svg" width="100%"></picture></a>
+<a href="https://www.urbario.de/"><picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/DasDigitaleMomentum/.github/main/profile/assets/cards/product-urbario-dark.svg"><img alt="Urbario: automated service charge statements for landlords, property managers and owners' associations. Waitlist." src="https://raw.githubusercontent.com/DasDigitaleMomentum/.github/main/profile/assets/cards/product-urbario-light.svg" width="100%"></picture></a>
 <br>
-<a href="https://www.authiane.com/"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/cards/product-authiane-dark.svg"><img alt="Authiane: a self-hostable platform for user accounts, subscriptions and usage-based billing in SaaS products. Early access." src="assets/cards/product-authiane-light.svg" width="100%"></picture></a>
+<a href="https://www.authiane.com/"><picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/DasDigitaleMomentum/.github/main/profile/assets/cards/product-authiane-dark.svg"><img alt="Authiane: a self-hostable platform for user accounts, subscriptions and usage-based billing in SaaS products. Early access." src="https://raw.githubusercontent.com/DasDigitaleMomentum/.github/main/profile/assets/cards/product-authiane-light.svg" width="100%"></picture></a>
 <br>
-<a href="https://www.handtuchheld.com/"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/cards/product-handtuch-held-dark.svg"><img alt="Handtuch Held: a live pool-lounger booking platform for hotels. Live, hotel area in preview." src="assets/cards/product-handtuch-held-light.svg" width="100%"></picture></a>
+<a href="https://www.handtuchheld.com/"><picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/DasDigitaleMomentum/.github/main/profile/assets/cards/product-handtuch-held-dark.svg"><img alt="Handtuch Held: a live pool-lounger booking platform for hotels. Live, hotel area in preview." src="https://raw.githubusercontent.com/DasDigitaleMomentum/.github/main/profile/assets/cards/product-handtuch-held-light.svg" width="100%"></picture></a>
 
 ### `$ ls ./open-source`
 
@@ -43,7 +43,7 @@ Tools from our own work. MIT-licensed, stars are live.
 
 ### `$ ./services --list`
 
-<a href="https://www.das-digitale-momentum.de/en/expertise/"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/cards/expertise-dark.svg"><img alt="What we do: Consulting and planning, build and integrate, operate, data and AI." src="assets/cards/expertise-light.svg" width="100%"></picture></a>
+<a href="https://www.das-digitale-momentum.de/en/expertise/"><picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/DasDigitaleMomentum/.github/main/profile/assets/cards/expertise-dark.svg"><img alt="What we do: Consulting and planning, build and integrate, operate, data and AI." src="https://raw.githubusercontent.com/DasDigitaleMomentum/.github/main/profile/assets/cards/expertise-light.svg" width="100%"></picture></a>
 
 ### `$ ./how-we-work`
 
