@@ -1,0 +1,72 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
+env:
+  UV_VERSION: 0.12.24
+  CHECK_JSONSCHEMA_VERSION: 0.38.2
+
+jobs:
+  lint:
+    name: lint
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - name: Set up Node.js
+        uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version: 22
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@c18668ad3cf93ea998bef934396af7bb5c839dc7 # v10.2.0
+        with:
+          version: ${{ env.UV_VERSION }}
+          enable-cache: false
+
+      - name: Validate issue forms, issue config, workflows and Dependabot config
+        run: |
+          cj="check-jsonschema@${CHECK_JSONSCHEMA_VERSION}"
+          uvx "$cj" --builtin-schema vendor.github-issue-forms \
+            .github/ISSUE_TEMPLATE/bug_report.yml .github/ISSUE_TEMPLATE/feature_request.yml
+          uvx "$cj" --builtin-schema vendor.github-issue-config .github/ISSUE_TEMPLATE/config.yml
+          uvx "$cj" --builtin-schema vendor.github-workflows .github/workflows/*.yml
+          uvx "$cj" --builtin-schema vendor.dependabot .github/dependabot.yml
+
+      - name: Syntax-check build scripts
+        run: |
+          for script in scripts/*.mjs; do
+            node --check "$script"
+          done
+
+  ci:
+    # Single required status check, enforced by the org ruleset
+    # "public-default-branch". Add every job of this workflow to `needs`.
+    name: ci
+    if: always()
+    needs: [lint]
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - name: Fail unless all jobs succeeded
+        env:
+          RESULTS: ${{ join(needs.*.result, ' ') }}
+        run: |
+          echo "Job results: $RESULTS"
+          for result in $RESULTS; do
+            [ "$result" = "success" ] || exit 1
+          done
