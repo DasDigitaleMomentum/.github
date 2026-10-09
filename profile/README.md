@@ -8,14 +8,14 @@
 </p>
 
 <p>
-<a href="https://is-agentic.com/scan/www.das-digitale-momentum.de"><img alt="is-agentic 100/100" src="https://img.shields.io/badge/is--agentic-100%2F100-1a7f37?style=flat-square"></a> <a href="https://www.das-digitale-momentum.de/llms.txt"><img alt="llms.txt" src="https://img.shields.io/badge/llms.txt-available-8957e5?style=flat-square"></a> <img alt="Accept: text/markdown" src="https://img.shields.io/badge/Accept-text%2Fmarkdown-6e7f96?style=flat-square"> <img alt="Since 2017" src="https://img.shields.io/badge/since-2017-ff3300?style=flat-square"> <img alt="Made in Much, Germany" src="https://img.shields.io/badge/made_in-Much%2C_Germany-0a1628?style=flat-square">
+<a href="https://is-agentic.com/scan/www.das-digitale-momentum.de"><img alt="is-agentic score (live)" src="https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fis-agentic.com%2Fapi%2Fv1%2Freport%3Furl%3Dhttps%253A%252F%252Fwww.das-digitale-momentum.de&amp;query=%24.score&amp;label=is-agentic&amp;suffix=%2F100&amp;color=2039c9&amp;style=flat-square"></a> <a href="https://www.das-digitale-momentum.de/llms.txt"><img alt="llms.txt" src="https://img.shields.io/badge/llms.txt-available-8957e5?style=flat-square"></a> <img alt="Accept: text/markdown" src="https://img.shields.io/badge/Accept-text%2Fmarkdown-6e7f96?style=flat-square"> <img alt="Since 2017" src="https://img.shields.io/badge/since-2017-ff3300?style=flat-square"> <img alt="Made in Much, Germany" src="https://img.shields.io/badge/made_in-Much%2C_Germany-0a1628?style=flat-square">
 </p>
 
 ### `$ whoami`
 
 Das Digitale Momentum builds software for companies and its own products. The same team consults, builds and runs both: cloud, DevOps, data and AI, from Much, Germany. Our website speaks Markdown to agents. Try it:
 
-<img alt="Terminal: curl with Accept text/markdown returns the page as Markdown, /llms.txt starts with # Das Digitale Momentum, and npx is-agentic reports 100 / 100." src="https://raw.githubusercontent.com/DasDigitaleMomentum/.github/main/profile/assets/terminal.png" width="100%">
+<img alt="Terminal: curl with Accept text/markdown returns the page as Markdown, and /llms.txt starts with # Das Digitale Momentum." src="https://raw.githubusercontent.com/DasDigitaleMomentum/.github/main/profile/assets/terminal.png" width="100%">
 
 ### `$ ls ./products`
 

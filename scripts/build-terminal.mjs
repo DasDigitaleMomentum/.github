@@ -1,5 +1,5 @@
 // Terminal for the org profile: real commands against www.das-digitale-momentum.de with their real
-// output (09.10.2026). All text is static and always visible (renderers such as the GitHub mobile app
+// output (09.10.2026); no scores or other values that change over time (the README badge is live). All text is static and always visible (renderers such as the GitHub mobile app
 // may freeze CSS animations at t=0); only the cursor blinks, and not with prefers-reduced-motion.
 import { writeFileSync } from "node:fs";
 const OUT = process.argv[2] ?? "profile";
@@ -17,13 +17,6 @@ const lines = [
   L(false, ["", C.out]),
   L(true, ["❯ ", C.prompt], ["curl ", C.cmd], ["-sL ", C.flag], ["das-digitale-momentum.de/llms.txt ", C.url], ["| ", C.pipe], ["head -1", C.cmd]),
   L(false, ["# Das Digitale Momentum", C.head]),
-  L(false, ["", C.out]),
-  L(true, ["❯ ", C.prompt], ["npx ", C.cmd], ["is-agentic ", C.flag], ["www.das-digitale-momentum.de", C.url]),
-  L(false, ["▲ / Is Agentic  ", C.cmd], ["www.das-digitale-momentum.de", C.url]),
-  L(false, ["  ████████████████████████  ", C.bar], ["100 / 100  ", C.ok], ["Strong technical baseline", C.out]),
-  L(false, ["  Essential     80 / 80    6 / 6 passed", C.out]),
-  L(false, ["  Recommended   20 / 20    9 / 9 passed", C.out]),
-  L(false, ["  Bonus          +2.6     11 positive signals", C.out]),
   L(false, ["", C.out]),
   L(false, ["❯ ", C.prompt]),
 ];
@@ -45,7 +38,7 @@ lines.forEach((line, i) => {
   }
   body.push(`  <text id="${id}" x="${PAD}" y="${y}" xml:space="preserve">${text}</text>`);
 });
-const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}" viewBox="0 0 ${W} ${H}" role="img" aria-label="Terminal: curl with Accept text/markdown returns the page as Markdown (# Software with momentum.), /llms.txt starts with # Das Digitale Momentum, and npx is-agentic reports 100 / 100 for www.das-digitale-momentum.de.">
+const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}" viewBox="0 0 ${W} ${H}" role="img" aria-label="Terminal: curl with Accept text/markdown returns the page as Markdown (# Software with momentum.), and /llms.txt starts with # Das Digitale Momentum.">
   <style>
     text{font:${FS}px ui-monospace,SFMono-Regular,"SF Mono",Menlo,Consolas,"Liberation Mono","DejaVu Sans Mono",monospace;white-space:pre}
     @keyframes type{from{clip-path:inset(0 100% 0 0)}to{clip-path:inset(0 0 0 0)}}
