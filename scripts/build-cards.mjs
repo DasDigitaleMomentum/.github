@@ -45,24 +45,35 @@ function badge(c, kind, label, x, y) {
   <path fill="${fgc}" d="${path(MED, label, x + 30, y + 28, size)}"/>`;
 }
 
-// Product cards 1280 x 270, full README width: name, category and status left, text right.
+// Product cards 1280 x 270, full README width: product icon, category, name and status left, text right.
+// Icons come from DDM-homepage public/assets/products (the registry icons), embedded as PNG data URIs
+// because GitHub does not load external images inside an SVG.
+const ICON = { urbario: ["urbario/icon.svg", 300], authiane: ["authiane/mark.svg", 2400], "handtuch-held": ["handtuch-held/icon.webp", 72] };
+const iconUri = async (id) => {
+  const [file, density] = ICON[id];
+  const png = await sharp(`${DDM}/public/assets/products/${file}`, { density, limitInputPixels: false })
+    .resize(192, 192, { fit: "contain", background: { r: 0, g: 0, b: 0, alpha: 0 } }).png().toBuffer();
+  return `data:image/png;base64,${png.toString("base64")}`;
+};
 const products = [
   { id: "urbario", name: "Urbario", category: "Property software", status: ["wait", "Waitlist"], text: "Automated service charge statements for landlords, property managers and owners' associations." },
   { id: "authiane", name: "Authiane", category: "SaaS infrastructure", status: ["early", "Early access"], text: "A self-hostable platform for user accounts, subscriptions and usage-based billing in SaaS products." },
   { id: "handtuch-held", name: "Handtuch Held", category: "Hospitality technology", status: ["live", "Live"], note: " · hotel area: preview", text: "A live pool-lounger booking platform for hotels." },
 ];
+for (const p of products) p.uri = await iconUri(p.id);
 for (const [theme, c] of Object.entries(THEMES)) {
   for (const p of products) {
-    const W = 1280, H = 270, P = 52, split = 560;
-    let nameSize = 62; while (width(BOLD, p.name, nameSize, -0.02) > split - P - 48) nameSize -= 1;
-    const lines = wrap(MED, p.text, 31, W - split - P - 100);
-    const top = H / 2 - ((lines.length - 1) * 44) / 2 + 11;
+    const W = 1280, H = 270, P = 52, split = 640, ICONS = 112, TX = P + ICONS + 32;
+    let nameSize = 58; while (width(BOLD, p.name, nameSize, -0.02) > split - TX - 40) nameSize -= 1;
+    const lines = wrap(MED, p.text, 29, W - split - P - 100);
+    const top = H / 2 - ((lines.length - 1) * 42) / 2 + 10;
     const inner = [
-      `  <path fill="${c.muted}" d="${path(MED, p.category.toUpperCase(), P, P + 24, 22, 0.08)}"/>`,
-      `  <path fill="${c.fg}" d="${path(BOLD, p.name, P, P + 92, nameSize, -0.02)}"/>`,
-      badge(c, p.status[0], p.status[1] + (p.note ?? ""), P, H - P - 40),
+      `  <image href="${p.uri}" x="${P}" y="${(H - ICONS) / 2}" width="${ICONS}" height="${ICONS}"/>`,
+      `  <path fill="${c.muted}" d="${path(MED, p.category.toUpperCase(), TX, P + 24, 20, 0.08)}"/>`,
+      `  <path fill="${c.fg}" d="${path(BOLD, p.name, TX, P + 90, nameSize, -0.02)}"/>`,
+      badge(c, p.status[0], p.status[1] + (p.note ?? ""), TX, H - P - 40),
       `  <rect x="${split - 2}" y="${P}" width="2" height="${H - 2 * P}" fill="${c.border}"/>`,
-      ...lines.map((l, i) => `  <path fill="${c.muted}" d="${path(MED, l, split + 44, top + i * 44, 31)}"/>`),
+      ...lines.map((l, i) => `  <path fill="${c.muted}" d="${path(MED, l, split + 44, top + i * 42, 29)}"/>`),
       `  <path fill="none" stroke="${c.accent}" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" d="M${W - P - 40} ${H / 2}h36m-14 -14l14 14l-14 14"/>`,
     ].join("\n");
     writeFileSync(`${OUT}/assets/cards/product-${p.id}-${theme}.svg`, frame(W, H, c, inner, `${p.name} (${p.category}): ${p.text} Status: ${p.status[1]}${p.note ?? ""}.`));
