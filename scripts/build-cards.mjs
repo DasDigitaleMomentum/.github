@@ -77,6 +77,8 @@ for (const [theme, c] of Object.entries(THEMES)) {
       `  <path fill="none" stroke="${c.accent}" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" d="M${W - P - 40} ${H / 2}h36m-14 -14l14 14l-14 14"/>`,
     ].join("\n");
     writeFileSync(`${OUT}/assets/cards/product-${p.id}-${theme}.svg`, frame(W, H, c, inner, `${p.name} (${p.category}): ${p.text} Status: ${p.status[1]}${p.note ?? ""}.`));
+    // PNG @2x as the published image: the GitHub mobile app does not render data-URI images inside SVG.
+    await sharp(`${OUT}/assets/cards/product-${p.id}-${theme}.svg`, { density: 144 }).png({ compressionLevel: 9 }).toFile(`${OUT}/assets/cards/product-${p.id}-${theme}.png`);
   }
 }
 
