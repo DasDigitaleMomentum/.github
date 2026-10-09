@@ -57,7 +57,7 @@ flowchart TB
     direction LR
     E["05 · Integrate"] --> F["06 · Assure quality"] --> G["07 · Operate"]
   end
-  D --> E
+  build --> run
   style build fill:none,stroke:none
   style run fill:none,stroke:none
   classDef s1 fill:#ff3300,stroke:#ff3300,color:#ffffff
