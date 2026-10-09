@@ -48,15 +48,25 @@ Tools from our own work. MIT-licensed, stars are live.
 ### `$ ./how-we-work`
 
 ```mermaid
-flowchart LR
-  A["01 · Analyse"] --> B["02 · Plan"] --> C["03 · Organise"] --> D["04 · Build"] --> E["05 · Integrate"] --> F["06 · Assure quality"] --> G["07 · Operate"]
+flowchart TB
+  subgraph build[" "]
+    direction LR
+    A["01 · Analyse"] --> B["02 · Plan"] --> C["03 · Organise"] --> D["04 · Build"]
+  end
+  subgraph run[" "]
+    direction LR
+    E["05 · Integrate"] --> F["06 · Assure quality"] --> G["07 · Operate"]
+  end
+  D --> E
+  style build fill:none,stroke:none
+  style run fill:none,stroke:none
   classDef s1 fill:#ff3300,stroke:#ff3300,color:#ffffff
   classDef s2 fill:#ff5533,stroke:#ff5533,color:#ffffff
   classDef s3 fill:#c92800,stroke:#c92800,color:#ffffff
   classDef s4 fill:#2039c9,stroke:#2039c9,color:#ffffff
   classDef s5 fill:#0969da,stroke:#0969da,color:#ffffff
   classDef s6 fill:#1a7f37,stroke:#1a7f37,color:#ffffff
-  classDef s7 fill:#0a1628,stroke:#29415f,color:#ffffff
+  classDef s7 fill:#8957e5,stroke:#8957e5,color:#ffffff
   class A s1
   class B s2
   class C s3
