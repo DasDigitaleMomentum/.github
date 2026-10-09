@@ -19,9 +19,11 @@ Das Digitale Momentum builds software for companies and its own products. The sa
 ### Our products
 
 <p>
-<a href="https://www.urbario.de/"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/cards/product-urbario-dark.svg"><img alt="Urbario: automated service charge statements for landlords, property managers and owners' associations. Waitlist." src="assets/cards/product-urbario-light.svg" width="32%"></picture></a>
-<a href="https://www.authiane.com/"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/cards/product-authiane-dark.svg"><img alt="Authiane: a self-hostable platform for user accounts, subscriptions and usage-based billing in SaaS products. Early access." src="assets/cards/product-authiane-light.svg" width="32%"></picture></a>
-<a href="https://www.handtuchheld.com/"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/cards/product-handtuch-held-dark.svg"><img alt="Handtuch Held: a live pool-lounger booking platform for hotels. Live, hotel area in preview." src="assets/cards/product-handtuch-held-light.svg" width="32%"></picture></a>
+<a href="https://www.urbario.de/"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/cards/product-urbario-dark.svg"><img alt="Urbario: automated service charge statements for landlords, property managers and owners' associations. Waitlist." src="assets/cards/product-urbario-light.svg" width="100%"></picture></a>
+<br>
+<a href="https://www.authiane.com/"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/cards/product-authiane-dark.svg"><img alt="Authiane: a self-hostable platform for user accounts, subscriptions and usage-based billing in SaaS products. Early access." src="assets/cards/product-authiane-light.svg" width="100%"></picture></a>
+<br>
+<a href="https://www.handtuchheld.com/"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/cards/product-handtuch-held-dark.svg"><img alt="Handtuch Held: a live pool-lounger booking platform for hotels. Live, hotel area in preview." src="assets/cards/product-handtuch-held-light.svg" width="100%"></picture></a>
 </p>
 
 <br>
@@ -40,6 +42,7 @@ Tools from our own work, MIT-licensed.
 </p>
 <p>
 <a href="https://github.com/DasDigitaleMomentum/wbridge"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/cards/oss-wbridge-dark.svg"><img alt="wbridge: Selection and shortcut bridge for GNOME on Wayland: select text, press a shortcut, run an action. MIT licence." src="assets/cards/oss-wbridge-light.svg" width="49%"></picture></a>
+<a href="https://www.das-digitale-momentum.de/en/open-source/"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/cards/oss-all-dark.svg"><img alt="All open source projects of Das Digitale Momentum on das-digitale-momentum.de." src="assets/cards/oss-all-light.svg" width="49%"></picture></a>
 </p>
 
 <br>

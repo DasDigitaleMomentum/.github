@@ -45,25 +45,27 @@ function badge(c, kind, label, x, y) {
   <path fill="${fgc}" d="${path(MED, label, x + 30, y + 28, size)}"/>`;
 }
 
-// Product cards 640 x 400
+// Product cards 1280 x 270, full README width: name, category and status left, text right.
 const products = [
   { id: "urbario", name: "Urbario", category: "Property software", status: ["wait", "Waitlist"], text: "Automated service charge statements for landlords, property managers and owners' associations." },
   { id: "authiane", name: "Authiane", category: "SaaS infrastructure", status: ["early", "Early access"], text: "A self-hostable platform for user accounts, subscriptions and usage-based billing in SaaS products." },
-  { id: "handtuch-held", name: "Handtuch Held", category: "Hospitality technology", status: ["live", "Live"], text: "A live pool-lounger booking platform for hotels." },
+  { id: "handtuch-held", name: "Handtuch Held", category: "Hospitality technology", status: ["live", "Live"], note: " · hotel area: preview", text: "A live pool-lounger booking platform for hotels." },
 ];
 for (const [theme, c] of Object.entries(THEMES)) {
   for (const p of products) {
-    const W = 640, H = 400, P = 44;
-    const lines = wrap(MED, p.text, 27, W - 2 * P);
+    const W = 1280, H = 270, P = 52, split = 560;
+    let nameSize = 62; while (width(BOLD, p.name, nameSize, -0.02) > split - P - 48) nameSize -= 1;
+    const lines = wrap(MED, p.text, 31, W - split - P - 100);
+    const top = H / 2 - ((lines.length - 1) * 44) / 2 + 11;
     const inner = [
-      `  <path fill="${c.muted}" d="${path(MED, p.category.toUpperCase(), P, P + 22, 19, 0.08)}"/>`,
-      `  <path fill="${c.fg}" d="${path(BOLD, p.name, P, P + 82, 50, -0.02)}"/>`,
-      ...lines.slice(0, 3).map((l, i) => `  <path fill="${c.muted}" d="${path(MED, l, P, P + 146 + i * 38, 27)}"/>`),
-      badge(c, p.status[0], p.status[1], P, H - P - 40),
-      // Arrow → drawn as a stroke (the Latin subset of the font has no arrows).
-      `  <path fill="none" stroke="${c.accent}" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" d="M${W - P - 36} ${H - P - 20}h30m-12 -12l12 12l-12 12"/>`,
+      `  <path fill="${c.muted}" d="${path(MED, p.category.toUpperCase(), P, P + 24, 22, 0.08)}"/>`,
+      `  <path fill="${c.fg}" d="${path(BOLD, p.name, P, P + 92, nameSize, -0.02)}"/>`,
+      badge(c, p.status[0], p.status[1] + (p.note ?? ""), P, H - P - 40),
+      `  <rect x="${split - 2}" y="${P}" width="2" height="${H - 2 * P}" fill="${c.border}"/>`,
+      ...lines.map((l, i) => `  <path fill="${c.muted}" d="${path(MED, l, split + 44, top + i * 44, 31)}"/>`),
+      `  <path fill="none" stroke="${c.accent}" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" d="M${W - P - 40} ${H / 2}h36m-14 -14l14 14l-14 14"/>`,
     ].join("\n");
-    writeFileSync(`${OUT}/assets/cards/product-${p.id}-${theme}.svg`, frame(W, H, c, inner, `${p.name}: ${p.text} Status: ${p.status[1]}.`));
+    writeFileSync(`${OUT}/assets/cards/product-${p.id}-${theme}.svg`, frame(W, H, c, inner, `${p.name} (${p.category}): ${p.text} Status: ${p.status[1]}${p.note ?? ""}.`));
   }
 }
 
@@ -86,19 +88,32 @@ for (const [theme, c] of Object.entries(THEMES)) {
   }
 }
 
-// What we do strip 1280 x 190
+// Sixth card: all projects on the website (closes the 2 x 3 grid).
+for (const [theme, c] of Object.entries(THEMES)) {
+  const W = 640, H = 290, P = 40;
+  const inner = [
+    `  <path fill="${c.accent}" d="${path(BOLD, "All projects", P, P + 34, 34, -0.01)}"/>`,
+    ...wrap(MED, "Licences, languages and what each project is for, on das-digitale-momentum.de.", 23, W - 2 * P).map((l, i) => `  <path fill="${c.muted}" d="${path(MED, l, P, P + 84 + i * 33, 23)}"/>`),
+    `  <path fill="${c.muted}" d="${path(MED, "das-digitale-momentum.de/open-source", P, H - P, 21)}"/>`,
+    `  <path fill="none" stroke="${c.accent}" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" d="M${W - P - 36} ${H - P - 8}h30m-12 -12l12 12l-12 12"/>`,
+  ].join("\n");
+  writeFileSync(`${OUT}/assets/cards/oss-all-${theme}.svg`, frame(W, H, c, inner, "All open source projects of Das Digitale Momentum on das-digitale-momentum.de."));
+}
+
+// What we do: 2 x 2 grid 1280 x 360
 const groups = ["Consulting & planning", "Build & integrate", "Operate", "Data & AI"];
 for (const [theme, c] of Object.entries(THEMES)) {
-  const W = 1280, H = 190, P = 44, col = (W - 2 * P) / 4;
-  // One size for all four names: the largest that fits the longest.
-  let SIZE = 32; while (groups.some((g) => width(BOLD, g, SIZE) > col - 44) && SIZE > 20) SIZE -= 1;
-  const inner = groups.map((g, i) => {
-    const x = P + i * col;
-    const sep = i ? `  <rect x="${x - 22}" y="${P}" width="2" height="${H - 2 * P}" fill="${c.border}"/>\n` : "";
-    const size = SIZE;
-    return `${sep}  <path fill="${c.accent}" d="${path(BOLD, String(i + 1).padStart(2, "0"), x, P + 26, 24)}"/>
-  <path fill="${c.fg}" d="${path(BOLD, g, x, P + 86, size, -0.01)}"/>`;
-  }).join("\n");
+  const W = 1280, H = 360, P = 52, colW = (W - 2 * P) / 2, rowH = (H - 2 * P) / 2;
+  const inner = [
+    `  <rect x="${W / 2 - 1}" y="${P}" width="2" height="${H - 2 * P}" fill="${c.border}"/>`,
+    `  <rect x="${P}" y="${H / 2 - 1}" width="${W - 2 * P}" height="2" fill="${c.border}"/>`,
+    ...groups.map((g, i) => {
+      const x = P + (i % 2) * colW + (i % 2 ? 44 : 0), y = P + Math.floor(i / 2) * rowH;
+      const base = y + rowH / 2 + 14;
+      return `  <path fill="${c.accent}" d="${path(BOLD, String(i + 1).padStart(2, "0"), x, base - 1, 28)}"/>
+  <path fill="${c.fg}" d="${path(BOLD, g, x + 64, base, 40, -0.01)}"/>`;
+    }),
+  ].join("\n");
   writeFileSync(`${OUT}/assets/cards/expertise-${theme}.svg`, frame(W, H, c, inner, `What we do: ${groups.join(", ")}.`));
 }
 
