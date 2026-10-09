@@ -130,4 +130,32 @@ for (const [theme, c] of Object.entries(THEMES)) {
   writeFileSync(`${OUT}/assets/cards/expertise-${theme}.svg`, frame(W, H, c, inner, `What we do: ${groups.join(", ")}.`));
 }
 
+// How we work: the seven steps of the website ("Vorgehen") in two rows, 1280 x 370. Replaces the
+// Mermaid diagram, which the GitHub mobile app shows as source code.
+const steps = [["01", "Analyse", "#ff3300"], ["02", "Plan", "#ff5533"], ["03", "Organise", "#c92800"], ["04", "Build", "#2039c9"], ["05", "Integrate", "#0969da"], ["06", "Assure quality", "#1a7f37"], ["07", "Operate", "#8957e5"]];
+for (const [theme, c] of Object.entries(THEMES)) {
+  const W = 1280, H = 370, P = 52, GAP = 52, PH = 104, rows = [steps.slice(0, 4), steps.slice(4)];
+  const pillW = (W - 2 * P - 3 * GAP) / 4;
+  // One name size for all steps: the largest that fits the longest name.
+  let NAME = 32; while (steps.some(([, n]) => width(BOLD, n, NAME) > pillW - 48) && NAME > 20) NAME -= 1;
+  const parts = [];
+  rows.forEach((row, r) => {
+    const y = P + r * (PH + 58);
+    row.forEach(([no, name, color], i) => {
+      const x = P + i * (pillW + GAP);
+      parts.push(`  <rect x="${x}" y="${y}" width="${pillW}" height="${PH}" rx="16" fill="${color}"/>`);
+      parts.push(`  <path fill="#ffffff" fill-opacity="0.75" d="${path(BOLD, no, x + 24, y + 38, 20)}"/>`);
+      parts.push(`  <path fill="#ffffff" d="${path(BOLD, name, x + 24, y + 80, NAME, -0.01)}"/>`);
+      if (i < row.length - 1) {
+        const ax = x + pillW + 10, ay = y + PH / 2;
+        parts.push(`  <path fill="none" stroke="${c.muted}" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" d="M${ax} ${ay}h${GAP - 20}m-10 -10l10 10l-10 10"/>`);
+      }
+    });
+  });
+  // From step 04 (end of row 1) down and back to step 05 (start of row 2).
+  const x4 = P + 3 * (pillW + GAP) + pillW / 2, x5 = P + pillW / 2, y1 = P + PH, y2 = P + PH + 58;
+  parts.push(`  <path fill="none" stroke="${c.muted}" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" d="M${x4} ${y1 + 8}v${(y2 - y1) / 2 - 8}H${x5}v${(y2 - y1) / 2 - 10}m-10 -10l10 10l10 -10"/>`);
+  writeFileSync(`${OUT}/assets/cards/process-${theme}.svg`, frame(W, H, c, parts.join("\n"), `How we work: ${steps.map(([n, s]) => `${n} ${s}`).join(", ")}.`));
+}
+
 console.log("ok");
