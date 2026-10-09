@@ -1,6 +1,7 @@
 // Builds the GitHub org profile banner (light/dark SVG, text as Montserrat 700 paths) and the avatar.
 import { readFileSync, writeFileSync } from "node:fs";
-const DDM = "/Users/Martin/git/DDM-homepage/.claude/worktrees/linkedin-icon";
+// DDM_HOMEPAGE: checkout of DasDigitaleMomentum/DDM-homepage with node_modules (font, signet, opentype.js, sharp).
+const DDM = process.env.DDM_HOMEPAGE ?? "../DDM-homepage";
 const opentype = await import(`${DDM}/node_modules/opentype.js/dist/opentype.mjs`);
 const { createRequire } = await import("node:module");
 const sharp = createRequire(`${DDM}/package.json`)("sharp");
@@ -53,5 +54,4 @@ for (const theme of ["dark", "light"]) writeFileSync(`${OUT}/assets/header-${the
 const S = 1000, w = S * 0.7, sc = w / SIGNET.width, h = SIGNET.height * sc;
 const avatar = `<svg xmlns="http://www.w3.org/2000/svg" width="${S}" height="${S}"><rect width="${S}" height="${S}" fill="#0a1628"/><g fill="#ffffff" transform="translate(${(S - w) / 2} ${(S - h) / 2}) scale(${sc}) translate(${-SIGNET.x} ${-SIGNET.y})">${signet}</g></svg>`;
 await sharp(Buffer.from(avatar)).png().toFile(`${OUT}/assets/avatar-1000.png`);
-for (const theme of ["dark", "light"]) await sharp(`${OUT}/assets/header-${theme}.svg`).png().toFile(`${OUT}/../header-${theme}-preview.png`);
 console.log("ok");

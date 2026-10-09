@@ -1,7 +1,9 @@
 // Cards for the GitHub org profile (light/dark SVG, Montserrat 700/500 as paths, DDM tokens).
 import { readFileSync, writeFileSync, mkdirSync } from "node:fs";
-const DDM = "/Users/Martin/git/DDM-homepage/.claude/worktrees/linkedin-icon";
-const SCR = "/private/tmp/claude-501/-Users-Martin-git/5947155d-1b13-4e1d-a397-8dcd04efbbf0/scratchpad";
+// DDM_HOMEPAGE: checkout of DasDigitaleMomentum/DDM-homepage with node_modules (font, signet, opentype.js, sharp).
+const DDM = process.env.DDM_HOMEPAGE ?? "../DDM-homepage";
+// MONTSERRAT_500: Montserrat wght=500 instance (fonttools varLib.instancer on the website's variable font).
+const FONT_500 = process.env.MONTSERRAT_500 ?? "montserrat-500.ttf";
 const opentype = await import(`${DDM}/node_modules/opentype.js/dist/opentype.mjs`);
 const { createRequire } = await import("node:module");
 const sharp = createRequire(`${DDM}/package.json`)("sharp");
@@ -9,7 +11,7 @@ const OUT = process.argv[2];
 mkdirSync(`${OUT}/assets/cards`, { recursive: true });
 const load = (f) => { const b = readFileSync(f); return opentype.parse(b.buffer.slice(b.byteOffset, b.byteOffset + b.byteLength)); };
 const BOLD = load(`${DDM}/src/seo/montserrat-700.ttf`);
-const MED = load(`${SCR}/montserrat-500.ttf`);
+const MED = load(FONT_500);
 
 function run(font, str, size, ls = 0) {
   const scale = size / font.unitsPerEm; let x = 0, prev = null; const glyphs = [];
@@ -100,8 +102,4 @@ for (const [theme, c] of Object.entries(THEMES)) {
   writeFileSync(`${OUT}/assets/cards/expertise-${theme}.svg`, frame(W, H, c, inner, `What we do: ${groups.join(", ")}.`));
 }
 
-// previews
-for (const f of ["product-urbario-dark", "product-handtuch-held-light", "oss-strix-halo-cuda-combined-toolbox-dark", "oss-wbridge-light", "expertise-dark"]) {
-  await sharp(`${OUT}/assets/cards/${f}.svg`).png().toFile(`${SCR}/prev-${f}.png`);
-}
 console.log("ok");
