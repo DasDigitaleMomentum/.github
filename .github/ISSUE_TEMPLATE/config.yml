@@ -1,0 +1,8 @@
+blank_issues_enabled: true
+contact_links:
+  - name: Report a security vulnerability
+    url: https://github.com/DasDigitaleMomentum/.github/blob/main/.github/SECURITY.md
+    about: Please report vulnerabilities privately, never in a public issue.
+  - name: Commercial support and consulting
+    url: https://www.das-digitale-momentum.de/en/
+    about: For paid support, consulting or custom development.
