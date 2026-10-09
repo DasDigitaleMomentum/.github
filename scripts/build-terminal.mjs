@@ -7,24 +7,24 @@ const C = { prompt: "#56d364", cmd: "#e6edf3", flag: "#79c0ff", url: "#a5d6ff", 
 // Each line: list of [text, colour]; `cmd` lines are typed, others fade in.
 const L = (cmd, ...parts) => ({ cmd, parts });
 const lines = [
-  L(true, ["❯ ", C.prompt], ["curl ", C.cmd], ["-sH ", C.flag], ['"Accept: text/markdown" ', C.url], ["https://www.das-digitale-momentum.de/en/ ", C.url], ["| ", C.pipe], ["head -3", C.cmd]),
+  L(true, ["❯ ", C.prompt], ["curl ", C.cmd], ["-sLH ", C.flag], ['"Accept: text/markdown" ', C.url], ["das-digitale-momentum.de/en ", C.url], ["| ", C.pipe], ["head -3", C.cmd]),
   L(false, ["Das Digitale Momentum · Since 2017", C.out]),
   L(false, ["", C.out]),
   L(false, ["# Software with momentum.", C.head]),
   L(false, ["", C.out]),
-  L(true, ["❯ ", C.prompt], ["curl ", C.cmd], ["-s ", C.flag], ["https://www.das-digitale-momentum.de/llms.txt ", C.url], ["| ", C.pipe], ["head -1", C.cmd]),
+  L(true, ["❯ ", C.prompt], ["curl ", C.cmd], ["-sL ", C.flag], ["das-digitale-momentum.de/llms.txt ", C.url], ["| ", C.pipe], ["head -1", C.cmd]),
   L(false, ["# Das Digitale Momentum", C.head]),
   L(false, ["", C.out]),
   L(true, ["❯ ", C.prompt], ["npx ", C.cmd], ["is-agentic ", C.flag], ["www.das-digitale-momentum.de", C.url]),
   L(false, ["▲ / Is Agentic  ", C.cmd], ["www.das-digitale-momentum.de", C.url]),
-  L(false, ["  ████████████████████████████████    ", C.bar], ["100 / 100  ", C.ok], ["Strong technical baseline", C.out]),
+  L(false, ["  ████████████████████████  ", C.bar], ["100 / 100  ", C.ok], ["Strong technical baseline", C.out]),
   L(false, ["  Essential     80 / 80    6 / 6 passed", C.out]),
   L(false, ["  Recommended   20 / 20    9 / 9 passed", C.out]),
   L(false, ["  Bonus          +2.6     11 positive signals", C.out]),
   L(false, ["", C.out]),
   L(false, ["❯ ", C.prompt]),
 ];
-const W = 1280, PAD = 36, TOP = 76, LH = 34, FS = 21;
+const W = 1040, PAD = 32, TOP = 76, LH = 34, FS = 22;
 const H = TOP + lines.length * LH + PAD;
 let t = 0.4; const css = []; const body = [];
 lines.forEach((line, i) => {
@@ -55,7 +55,7 @@ const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}" 
   <rect x="1" y="1" width="${W - 2}" height="${H - 2}" rx="18" fill="#0a1628" stroke="#29415f" stroke-width="2"/>
   <path d="M1 19a18 18 0 0 1 18-18h${W - 38}a18 18 0 0 1 18 18v27H1z" fill="#13233a"/>
   <circle cx="30" cy="24" r="7" fill="#ff5f57"/><circle cx="54" cy="24" r="7" fill="#febc2e"/><circle cx="78" cy="24" r="7" fill="#28c840"/>
-  <text x="${W / 2}" y="31" text-anchor="middle" fill="#6e7f96" style="font-size:17px">zsh — www.das-digitale-momentum.de</text>
+  <text x="${W / 2}" y="31" text-anchor="middle" fill="#6e7f96" style="font-size:17px">zsh — das-digitale-momentum.de</text>
 ${body.join("\n")}
   <rect id="cursor" x="${PAD + 2 * FS * 0.6 + 4}" y="${TOP + (lines.length - 1) * LH - 14}" width="12" height="24" fill="#56d364"/>
 </svg>
