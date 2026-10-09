@@ -15,7 +15,7 @@
 
 Das Digitale Momentum builds software for companies and its own products. The same team consults, builds and runs both: cloud, DevOps, data and AI, from Much, Germany. Our website speaks Markdown to agents. Try it:
 
-<img alt="Terminal: curl with Accept text/markdown returns the page as Markdown, /llms.txt starts with # Das Digitale Momentum, and npx is-agentic reports 100 / 100." src="https://raw.githubusercontent.com/DasDigitaleMomentum/.github/main/profile/assets/terminal.svg" width="100%">
+<img alt="Terminal: curl with Accept text/markdown returns the page as Markdown, /llms.txt starts with # Das Digitale Momentum, and npx is-agentic reports 100 / 100." src="https://raw.githubusercontent.com/DasDigitaleMomentum/.github/main/profile/assets/terminal.png" width="100%">
 
 ### `$ ls ./products`
 

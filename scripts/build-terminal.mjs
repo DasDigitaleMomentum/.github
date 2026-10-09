@@ -3,7 +3,9 @@
 // may freeze CSS animations at t=0); only the cursor blinks, and not with prefers-reduced-motion.
 import { writeFileSync } from "node:fs";
 const OUT = process.argv[2] ?? "profile";
-const esc = (s) => s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+// Spaces become no-break spaces: renderers without CSS white-space support (librsvg, native SVG views
+// such as the GitHub mobile app) would otherwise collapse them between tspans.
+const esc = (s) => s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/ /g, "\u00a0");
 const C = { prompt: "#56d364", cmd: "#e6edf3", flag: "#79c0ff", url: "#a5d6ff", pipe: "#ff7b72", out: "#b0b8c4", head: "#ff5533", ok: "#56d364", dim: "#6e7f96", bar: "#ff5533" };
 // Each line: list of [text, colour]; `cmd` lines are typed, others fade in.
 const L = (cmd, ...parts) => ({ cmd, parts });
@@ -41,7 +43,7 @@ lines.forEach((line, i) => {
     // static: no per-line animation
     t += line.parts[0][0] === "" ? 0.05 : 0.12;
   }
-  body.push(`  <text id="${id}" x="${PAD}" y="${y}">${text}</text>`);
+  body.push(`  <text id="${id}" x="${PAD}" y="${y}" xml:space="preserve">${text}</text>`);
 });
 const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}" viewBox="0 0 ${W} ${H}" role="img" aria-label="Terminal: curl with Accept text/markdown returns the page as Markdown (# Software with momentum.), /llms.txt starts with # Das Digitale Momentum, and npx is-agentic reports 100 / 100 for www.das-digitale-momentum.de.">
   <style>
@@ -62,4 +64,10 @@ ${body.join("\n")}
 </svg>
 `;
 writeFileSync(`${OUT}/assets/terminal.svg`, svg);
+// The README shows a 2x PNG of it: identical in every renderer, including the GitHub mobile app.
+if (process.env.DDM_HOMEPAGE) {
+  const { createRequire } = await import("node:module");
+  const sharp = createRequire(`${process.env.DDM_HOMEPAGE}/package.json`)("sharp");
+  await sharp(`${OUT}/assets/terminal.svg`, { density: 144 }).png({ compressionLevel: 9 }).toFile(`${OUT}/assets/terminal.png`);
+}
 console.log("ok", `${W}x${H}`, `${t.toFixed(1)}s`);
