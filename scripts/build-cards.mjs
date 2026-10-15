@@ -2,6 +2,8 @@
 import { readFileSync, writeFileSync, mkdirSync } from "node:fs";
 // DDM_HOMEPAGE: checkout of DasDigitaleMomentum/DDM-homepage with node_modules (font, signet, opentype.js, sharp).
 const DDM = process.env.DDM_HOMEPAGE ?? "../DDM-homepage";
+// SEARXNCRAWL_WEB: checkout of DasDigitaleMomentum/searxncrawl-web (searxNcrawl icon; not in the DDM registry).
+const SEARXNCRAWL_WEB = process.env.SEARXNCRAWL_WEB ?? "../searxncrawl-web";
 // MONTSERRAT_500: Montserrat wght=500 instance (fonttools varLib.instancer on the website's variable font).
 const FONT_500 = process.env.MONTSERRAT_500 ?? "montserrat-500.ttf";
 const opentype = await import(`${DDM}/node_modules/opentype.js/dist/opentype.mjs`);
@@ -48,14 +50,20 @@ function badge(c, kind, label, x, y) {
 // Product cards 1280 x 270, full README width: product icon, category, name and status left, text right.
 // Icons come from DDM-homepage public/assets/products (the registry icons), embedded as PNG data URIs
 // because GitHub does not load external images inside an SVG.
-const ICON = { urbario: ["urbario/icon.svg", 300], authiane: ["authiane/mark.svg", 2400], "handtuch-held": ["handtuch-held/icon.webp", 72] };
+const ICON = {
+  searxncrawl: [`${SEARXNCRAWL_WEB}/public/branding/icon.svg`, 600],
+  urbario: [`${DDM}/public/assets/products/urbario/icon.svg`, 300],
+  authiane: [`${DDM}/public/assets/products/authiane/mark.svg`, 2400],
+  "handtuch-held": [`${DDM}/public/assets/products/handtuch-held/icon.webp`, 72],
+};
 const iconUri = async (id) => {
   const [file, density] = ICON[id];
-  const png = await sharp(`${DDM}/public/assets/products/${file}`, { density, limitInputPixels: false })
+  const png = await sharp(file, { density, limitInputPixels: false })
     .resize(192, 192, { fit: "contain", background: { r: 0, g: 0, b: 0, alpha: 0 } }).png().toBuffer();
   return `data:image/png;base64,${png.toString("base64")}`;
 };
 const products = [
+  { id: "searxncrawl", name: "searxNcrawl", category: "AI agent tooling", status: ["live", "Open source"], note: " · Cloud: waitlist", text: "Web search and clean Markdown crawling for AI agents. An open-source MCP server, self-hosted, no API key." },
   { id: "urbario", name: "Urbario", category: "Property software", status: ["wait", "Waitlist"], text: "Automated service charge statements for landlords, property managers and owners' associations." },
   { id: "authiane", name: "Authiane", category: "SaaS infrastructure", status: ["early", "Early access"], text: "A self-hostable platform for user accounts, subscriptions and usage-based billing in SaaS products." },
   { id: "handtuch-held", name: "Handtuch Held", category: "Hospitality technology", status: ["live", "Live"], note: " · hotel area: preview", text: "A live pool-lounger booking platform for hotels." },

@@ -8,5 +8,5 @@ Regenerate (Node 22, from this directory):
 
 ```sh
 DDM_HOMEPAGE=../DDM-homepage node scripts/build-header.mjs profile
-DDM_HOMEPAGE=../DDM-homepage MONTSERRAT_500=montserrat-500.ttf node scripts/build-cards.mjs profile '<repos JSON>'
+DDM_HOMEPAGE=../DDM-homepage SEARXNCRAWL_WEB=../searxncrawl-web MONTSERRAT_500=montserrat-500.ttf node scripts/build-cards.mjs profile '<repos JSON>'
 ```
